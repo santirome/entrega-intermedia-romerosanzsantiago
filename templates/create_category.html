@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+------------------TITULO
+{% endblock %}
+
+{% block contenido %}
+
+{% if form %}
+    <form action="" method = "POST">
+      {% csrf_token %}
+        <table>
+            {{form.as_table}}
+        </table>
+        <input type="submit", value="yeah">
+    </form>
+{% elif new_category %}
+
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{category.name}}</h5>
+    </div>
+{% endif %}
+
+</div>
+
+{% endblock %}
