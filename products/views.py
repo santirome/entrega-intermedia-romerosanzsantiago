@@ -82,6 +82,3 @@ def search_discounts_view(request):
     discount = Discount.objects.filter(name__icontains = request.GET['Search'])
     context = {'discount':discount}
     return render(request, 'search_discount.html', context = context)
-
-def no_hay_error(request):
-    return HttpResponse('No hay error, usted se tiene que arrepentir de lo que dijo.')
