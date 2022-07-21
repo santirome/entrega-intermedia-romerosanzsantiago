@@ -1,10 +1,12 @@
 from django import forms
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import render
 from products.models import Discount, Products , Category
 from products.forms import Product_form, Category_form, Discount_form
 from django.http import HttpResponse
 
+def index(request):
+    return render(request, 'index.html', {})
 
 def products(request):
     productos =  Products.objects.all()
@@ -15,22 +17,25 @@ def contacto(request):
     return render(request, 'contacto.html')
 
 def create_product_view(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         form = Product_form()
         context = {'form':form}
-        return render(request, 'create_product.html', context=context)
-    else:
-        form = Product_form(request.POST)
         if form.is_valid():
             new_product = Products.objects.create(
                 name = form.cleaned_data['name'],
                 price = form.cleaned_data['price'],
                 description = form.cleaned_data['description'],
                 SKU = form.cleaned_data['SKU'],
-                active = form.cleaned_data['active'],
             )
             context = {'new_product':new_product}
-        return HttpResponse('Viniste por POST')
+            return HttpResponseRedirect(reverse("index.html"))
+    elif request.method == "GET":
+        form = Product_form()
+    else:
+        return HttpResponseBadRequest("Error no conozco ese metodo para esta request")
+
+    
+    return render(request, 'create_product.html', {'form': form})
 
 def search_product_view(request):
     print(request.GET)
@@ -39,20 +44,23 @@ def search_product_view(request):
     return render(request, 'search_product.html', context = context)
 
 def create_category_view(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         form = Category_form()
         context = {'form':form}
-        return render(request, 'create_category.html', context=context)
-    else:
-        form = Category_form(request.POST)
         if form.is_valid():
             new_category = Category.objects.create(
                 name = form.cleaned_data['name'],
                 description = form.cleaned_data['description'],
-                active = form.cleaned_data['active'],
             )
             context = {'new_category':new_category}
-        return HttpResponse('Viniste por POST')
+            return HttpResponseRedirect(reverse("index.html"))
+    elif request.method == "GET":
+        form = Category_form()
+    else:
+        return HttpResponseBadRequest("Error no conozco ese metodo para esta request")
+
+    
+    return render(request, 'create_category.html', {'form': form})
 
 def search_category_view(request):
     print(request.GET)
@@ -61,21 +69,25 @@ def search_category_view(request):
     return render(request, 'search_category.html', context = context)
 
 def create_discount_view(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         form = Discount_form()
         context = {'form':form}
-        return render(request, 'create_discount.html', context=context)
-    else:
-        form = Discount_form(request.POST)
         if form.is_valid():
-            new_discount = Discount.objects.create(
+            new_product = Discount.objects.create(
                 name = form.cleaned_data['name'],
-                description = form.cleaned_data['description'],
                 price = form.cleaned_data['price'],
-                active = form.cleaned_data['active'],
+                description = form.cleaned_data['description'],
+                SKU = form.cleaned_data['SKU'],
             )
             context = {'new_discount':new_discount}
-        return HttpResponse('Viniste por POST')
+            return HttpResponseRedirect(reverse("index.html"))
+    elif request.method == "GET":
+        form = Discount_form()
+    else:
+        return HttpResponseBadRequest("Error no conozco ese metodo para esta request")
+
+    
+    return render(request, 'create_discount.html', {'form': form})
 
 def search_discounts_view(request):
     print(request.GET)
