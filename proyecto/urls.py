@@ -4,6 +4,6 @@ from proyecto.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, 'index'),
+    path('', index, name = 'index'),
     path('products/', include('products.urls')),
 ]
