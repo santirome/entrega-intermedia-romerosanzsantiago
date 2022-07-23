@@ -3,18 +3,18 @@
 {% block contenido %}
 
 {% csrf_token %}
+    {% for product in products %}
 
 <div class="card" style="width: 18rem;">
                 <img src="" class="card-img-top" alt="">
                 <div class="card-body">
-                    <h3>Buscaste:</h3>
-                    <h5 class="card-text">Item {{Products.name}}</h5>
-                    <h5 class="card-text">Descripción {{Products.description}}</h5>
-                    <h5 class="card-text">Precio {{Products.price}}</h5>
-                    <h5 class="card-text">ID {{Products.SKU}}</h5>
-                    <a href="javascript:history.back()" class="btn btn-primary">Regresar</a>
+                    <h5 class="card-text">Item: {{product.name}}</h5>
+                    <h5 class="card-text">Descripción: {{product.description}}</h5>
+                    <h5 class="card-text">Precio: {{product.price}}</h5>
+                    <h5 class="card-text">ID: {{product.SKU }}</h5>
                 </div>
     </div>
 
-
+    {% endfor %}
+    <a href="javascript:history.back()" class="btn btn-primary">Regresar</a>
 {% endblock %}

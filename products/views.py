@@ -1,10 +1,10 @@
 from audioop import reverse
+from genericpath import exists
 from django import forms
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from products.models import Discount, Products , Category
 from products.forms import Product_form, Category_form, Discount_form
-from django.http import HttpResponse
 
 def index(request):
     return render(request, 'index.html', {})
@@ -19,8 +19,7 @@ def contacto(request):
 
 def create_product_view(request):
     if request.method == 'POST':
-        form = Product_form()
-        context = {'form':form}
+        form = Product_form(request.POST)
         if form.is_valid():
             new_product = Products.objects.create(
                 name = form.cleaned_data['name'],
@@ -28,8 +27,6 @@ def create_product_view(request):
                 description = form.cleaned_data['description'],
                 SKU = form.cleaned_data['SKU'],
             )
-            context = {'new_product':new_product}
-            return HttpResponseRedirect(reverse("index.html"))
     elif request.method == "GET":
         form = Product_form()
     else:
