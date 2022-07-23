@@ -1,3 +1,4 @@
+from audioop import reverse
 from django import forms
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import render
@@ -38,10 +39,12 @@ def create_product_view(request):
     return render(request, 'create_product.html', {'form': form})
 
 def search_product_view(request):
-    print(request.GET)
-    products = Products.objects.filter(name__icontains = request.GET['Search'])
-    context = {'products':products}
-    return render(request, 'search_product.html', context = context)
+
+        print(request.GET)
+
+        products = Products.objects.filter(name__contains = request.GET['Search'])
+
+        return render(request, 'search_product.html',  {'products':products})
 
 def create_category_view(request):
     if request.method == 'POST':

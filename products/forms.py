@@ -14,4 +14,3 @@ class Category_form(forms.Form):
 class Discount_form(forms.Form):
     name = forms.CharField(label="Nombre", max_length=40)
     description = forms.CharField(label="Descripción", max_length=40)
-    price = forms.FloatField(label="Precio", widget=forms.NumberInput(attrs={'placeholder': "En números"}))

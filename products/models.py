@@ -7,9 +7,13 @@ class Products(models.Model):
     description = models.CharField(max_length=200, blank=True, null=True)
     SKU = models.CharField(max_length=30, unique=True)
 
+    def __str__(self):
+        return f"Producto: {self.name} - Precio: {self.price} - Descripción: {self.description}"
     class Meta:
         verbose_name = 'producto'
         verbose_name_plural = 'productos'
+        
+            
 
 class Category(models.Model):
     name = models.CharField(max_length=40)
@@ -23,7 +27,6 @@ class Category(models.Model):
 class Discount(models.Model):
     name = models.CharField(max_length=40)
     description = models.CharField(max_length=100)
-    price = models.IntegerField()
 
 
     class Meta:

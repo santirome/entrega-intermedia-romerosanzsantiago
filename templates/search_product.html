@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 
+{% block contenido %}
 
-    {% for product in products %}
+{% csrf_token %}
 
 <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{product.name}}</h5>
-            <p class="card-text">{{product.description}}.</p>
-            <a href="#" class="btn btn-primary">boton 2</a>
-        </div>
-
+                <img src="" class="card-img-top" alt="">
+                <div class="card-body">
+                    <h3>Buscaste:</h3>
+                    <h5 class="card-text">Item {{Products.name}}</h5>
+                    <h5 class="card-text">Descripción {{Products.description}}</h5>
+                    <h5 class="card-text">Precio {{Products.price}}</h5>
+                    <h5 class="card-text">ID {{Products.SKU}}</h5>
+                    <a href="javascript:history.back()" class="btn btn-primary">Regresar</a>
+                </div>
     </div>
-    {% endfor %}
 
-</body>
 
-</html>
+{% endblock %}
